@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adrian Charania's 2026 Dynasty Mock Draft</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --bg-card: #16161a;
+      --bg-card-hover: #1c1c22;
+      --red: #c8102e;
+      --red-bright: #e31837;
+      --white: #f5f5f5;
+      --gray: #8a8a94;
+      --gray-light: #b0b0b8;
+      --border: #2a2a32;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --qb: #d4a017;
+      --rb: #2ecc71;
+      --wr: #3498db;
+      --te: #9b59b6;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(180deg, #1a0008 0%, var(--bg) 100%);
+      border-bottom: 3px solid var(--red);
+      padding: 2rem 1.25rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(200, 16, 46, 0.03) 40px,
+        rgba(200, 16, 46, 0.03) 80px
+      );
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.75rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .header h1 span {
+      color: var(--red-bright);
+    }
+
+    .subheading {
+      font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+      color: var(--gray-light);
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      position: relative;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      padding: 0 1.25rem;
+      color: var(--gray-light);
+      font-size: 1rem;
+      text-align: center;
+      line-height: 1.65;
+    }
+
+    /* Main */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    .round-section {
+      margin-bottom: 3rem;
+    }
+
+    .round-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--red);
+    }
+
+    .round-title h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .round-title .pill {
+      background: rgba(200, 16, 46, 0.2);
+      color: var(--red-bright);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--red);
+    }
+
+    /* Grid */
+    .draft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(200, 16, 46, 0.15);
+      border-color: rgba(200, 16, 46, 0.4);
+      background: var(--bg-card-hover);
+    }
+
+    .card-image {
+      height: 140px;
+      background: linear-gradient(135deg, #1a1a22 0%, #252530 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      opacity: 0.85;
+    }
+
+    .card-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-card) 0%, transparent 60%);
+    }
+
+    .pick-number {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--white);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      z-index: 1;
+    }
+
+    .position-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.55rem;
+      border-radius: 4px;
+      z-index: 1;
+      color: #111;
+    }
+
+    .position-badge.qb { background: var(--qb); }
+    .position-badge.rb { background: var(--rb); }
+    .position-badge.wr { background: var(--wr); color: #fff; }
+    .position-badge.te { background: var(--te); color: #fff; }
+
+    .card-body {
+      padding: 1rem 1.1rem 1.15rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .player-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--white);
+      margin-top: 0.15rem;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .meta strong {
+      color: var(--gray-light);
+      font-weight: 600;
+    }
+
+    .drafted-by {
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      margin-top: 0.25rem;
+    }
+
+    .drafted-by span {
+      color: var(--red-bright);
+      font-weight: 700;
+    }
+
+    .nfl-team {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-top: 0.15rem;
+      width: fit-content;
+    }
+
+    .rationale {
+      font-size: 0.82rem;
+      color: var(--gray-light);
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--border);
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    .rationale::before {
+      content: "▸ ";
+      color: var(--red);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1.25rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+    }
+
+    footer strong {
+      color: var(--white);
+    }
+
+    @media (max-width: 480px) {
+      .draft-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pick-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Adrian Charania Mock Draft</div>
+    <h1>Adrian Charania's <span>2026</span> Dynasty Mock Draft</h1>
+    <p class="subheading">Round 1 Dynasty Rookie Mock Draft</p>
+  </header>
+
+  <p class="intro">
+    Adrian Charania breaks down the first round of the 2026 DynaZTy rookie mock draft,
+    featuring elite receivers, Notre Dame running backs, and high-upside quarterbacks.
+  </p>
+
+  <main id="draft-board"></main>
+
+  <footer>
+    © 2026 <strong>Adrian Charania</strong> | DynaZTy Mock Draft Central
+  </footer>
+
+  <script>
+    const rounds = [
+      {
+        label: "Round 1",
+        picks: [
+          { pick: 1, team: "Cock Bowers", player: "Fernando Mendoza", pos: "QB", college: "Indiana", nfl: "Raiders", rationale: "Raiders need a franchise QB; Mendoza's arm talent and poise fit a win-now rebuild." },
+          { pick: 2, team: "Expiring Goods", player: "Jeremiyah Love", pos: "RB", college: "Notre Dame", nfl: "Cardinals", rationale: "Elite Notre Dame backfield talent gives Arizona a three-down workhorse with pass-catching upside." },
+          { pick: 3, team: "DoosBoys", player: "Carnell Tate", pos: "WR", college: "Ohio State", nfl: "Titans", rationale: "Tennessee adds a polished route-runner who can become the WR1 in a thin corps." },
+          { pick: 4, team: "DoosBoys", player: "Jordyn Tyson", pos: "WR", college: "Arizona State", nfl: "Saints", rationale: "Big-bodied separator who profiles as a red-zone weapon for a Saints offense craving size." },
+          { pick: 5, team: "The Dukes", player: "Makai Lemon", pos: "WR", college: "USC", nfl: "Eagles", rationale: "Eagles double down on explosive playmakers; Lemon's YAC and slot versatility fit Philly's scheme." },
+          { pick: 6, team: "Expiring Goods", player: "Kenyon Sadiq", pos: "TE", college: "Oregon", nfl: "Jets", rationale: "Jets land a move TE who can stress seams and give their QB a safety valve in the middle." },
+          { pick: 7, team: "Lil Peanuts Padres", player: "KC Concepcion", pos: "WR", college: "Texas A&M", nfl: "Browns", rationale: "Cleveland gets a dynamic separator with return value — perfect for a team rebuilding around youth." },
+          { pick: 8, team: "The Dukes", player: "Omar Cooper Jr.", pos: "WR", college: "Indiana", nfl: "Jets", rationale: "Cooper's route nuance and contested-catch ability give the Jets a true alpha on the outside." },
+          { pick: 9, team: "Highland Hawgs", player: "Jadarian Price", pos: "RB", college: "Notre Dame", nfl: "Seahawks", rationale: "Seattle adds another Notre Dame back with contact balance and receiving chops for a committee lead." },
+          { pick: 10, team: "Cock Bowers", player: "Denzel Boston", pos: "WR", college: "Washington", nfl: "Browns", rationale: "Boston's size-speed combo gives Cleveland a deep threat to pair with their early WR investment." },
+          { pick: 11, team: "Expiring Goods", player: "Ty Simpson", pos: "QB", college: "Alabama", nfl: "Rams", rationale: "Rams stash a high-ceiling QB prospect behind Stafford — ideal dynasty value at pick 11." },
+          { pick: 12, team: "Kilpatty Vegas", player: "Eli Stowers", pos: "TE", college: "Kansas State", nfl: "Eagles", rationale: "Philadelphia rounds out Round 1 with a reliable move tight end who can block and win in the slot." },
+        ],
+      },
+      {
+        label: "Round 2",
+        picks: [
+          { pick: 1, team: "Cock Bowers", player: "Jonah Coleman", pos: "RB", college: "Washington", nfl: "Broncos", rationale: "Denver adds a powerful between-the-tackles runner to complement their speed back on roster." },
+          { pick: 2, team: "The Dukes", player: "De'Zhaun Stribling", pos: "WR", college: "Missouri", nfl: "49ers", rationale: "San Francisco loves versatile WRs; Stribling's YAC and toughness fit the Shanahan tree." },
+          { pick: 3, team: "DoosBoys", player: "Chris Bell", pos: "WR", college: "Louisville", nfl: "Dolphins", rationale: "Miami gets a big slot who can win one-on-ones — perfect for Tua's quick-game timing." },
+          { pick: 4, team: "Expiring Goods", player: "Carson Beck", pos: "QB", college: "Georgia", nfl: "Cardinals", rationale: "Cardinals double up at QB for dynasty depth behind their Round 1 RB investment." },
+          { pick: 5, team: "The Dukes", player: "Nicholas Singleton", pos: "RB", college: "Penn State", nfl: "Titans", rationale: "Singleton's burst and vision give Tennessee a goal-line hammer in a thin RB room." },
+          { pick: 6, team: "Expiring Goods", player: "Antonio Williams", pos: "WR", college: "Clemson", nfl: "Commanders", rationale: "Washington adds a smooth route-runner who can develop into a volume WR2 in year two." },
+          { pick: 7, team: "Expiring Goods", player: "Germie Bernard", pos: "WR", college: "Oregon", nfl: "Steelers", rationale: "Pittsburgh targets a deep threat to stretch the field opposite their possession receivers." },
+          { pick: 8, team: "Campbell Clinic", player: "Kaytron Allen", pos: "RB", college: "Penn State", nfl: "Commanders", rationale: "Allen offers pass-protection and contact balance — ideal for a team that values every-down backs." },
+          { pick: 9, team: "Kilpatty Vegas", player: "Emmett Johnson", pos: "RB", college: "Nebraska", nfl: "Chiefs", rationale: "Kansas City adds a shifty receiving back who fits their screen-heavy, space-creating offense." },
+          { pick: 10, team: "Expiring Goods", player: "Elijah Sarratt", pos: "WR", college: "Indiana", nfl: "Ravens", rationale: "Baltimore loves big, physical WRs; Sarratt's contested-catch profile fits Lamar's deep shots." },
+          { pick: 11, team: "Rocky Top Rowdies", player: "Zachariah Branch", pos: "WR", college: "LSU", nfl: "Falcons", rationale: "Atlanta adds a speed demon with return upside — instant fantasy spark in dynasty formats." },
+          { pick: 12, team: "Campbell Clinic", player: "Max Klare", pos: "TE", college: "Purdue", nfl: "Rams", rationale: "Rams close Round 2 with a red-zone TE who can develop into a reliable target for their young QB room." },
+        ],
+      },
+    ];
+
+    const posClass = { QB: "qb", RB: "rb", WR: "wr", TE: "te" };
+
+    function placeholderImage(name, pos) {
+      const initials = name.split(" ").map((n) => n[0]).join("").slice(0, 2);
+      const colors = { QB: "d4a017", RB: "2ecc71", WR: "3498db", TE: "9b59b6" };
+      const bg = colors[pos] || "c8102e";
+      return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&size=400&background=${bg}&color=111111&bold=true&font-size=0.4`;
+    }
+
+    function renderCard(pick, roundNum) {
+      const globalPick = roundNum === 1 ? pick.pick : pick.pick + 12;
+      const posLower = posClass[pick.pos];
+      const img = placeholderImage(pick.player, pick.pos);
+
+      return `
+        <article class="card">
+          <div class="card-image">
+            <img src="${img}" alt="${pick.player}" loading="lazy" />
+            <span class="pick-number">${globalPick}</span>
+            <span class="position-badge ${posLower}">${pick.pos}</span>
+          </div>
+          <div class="card-body">
+            <h3 class="player-name">${pick.player}</h3>
+            <p class="meta"><strong>${pick.pos}</strong> · ${pick.college}</p>
+            <p class="drafted-by">Drafted by: <span>${pick.team}</span></p>
+            <span class="nfl-team">→ ${pick.nfl}</span>
+            <p class="rationale">${pick.rationale}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    const board = document.getElementById("draft-board");
+
+    rounds.forEach((round, i) => {
+      const section = document.createElement("section");
+      section.className = "round-section";
+      section.innerHTML = `
+        <div class="round-title">
+          <h2>${round.label}</h2>
+          <span class="pill">12 Picks</span>
+        </div>
+        <div class="draft-grid">
+          ${round.picks.map((p) => renderCard(p, i + 1)).join("")}
+        </div>
+      `;
+      board.appendChild(section);
+    });
+  </script>
+</body>
+</html>
